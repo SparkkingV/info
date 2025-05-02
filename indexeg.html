@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ElectroShop Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #0f8bd9, #00bcd4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-container h1 {
+      margin-bottom: 1rem;
+      color: #0f8bd9;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-container button {
+      background: #0f8bd9;
+      color: white;
+      padding: 0.75rem;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background: #0d6fb8;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="https://via.placeholder.com/80x80?text=Logo" alt="Shop Logo" class="logo">
+    <h1>ElectroShop</h1>
+    <input type="text" id="username" placeholder="Enter your name">
+    <input type="text" id="mobile" placeholder="Enter your mobile number">
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script>
+    const sellerCredentials = {
+      name: "seller",
+      phone: "1234567890"
+    };
+
+    function login() {
+      const name = document.getElementById("username").value.trim();
+      const phone = document.getElementById("mobile").value.trim();
+
+      if (!name || !phone) {
+        alert("Please enter both name and mobile number.");
+        return;
+      }
+
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userPhone", phone);
+
+      if (name.toLowerCase() === sellerCredentials.name.toLowerCase() && phone === sellerCredentials.phone) {
+        window.location.href = "seller.html";
+      } else {
+        window.location.href = "buyer.html";
+      }
+    }
+  </script>
+</body>
+</html>
