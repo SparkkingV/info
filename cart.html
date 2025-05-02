@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - ElectroShop</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 2rem;
+    }
+    h1 {
+      color: #0f8bd9;
+    }
+    .cart-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .cart-item {
+      border-bottom: 1px solid #ccc;
+      padding: 0.5rem 0;
+    }
+    .total {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 0.75rem;
+      background: #0f8bd9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #0d6fb8;
+    }
+  </style>
+</head>
+<body>
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <div id="cartItems"></div>
+    <div class="total" id="total"></div>
+
+    <h2>Delivery Address</h2>
+    <input type="text" id="address" placeholder="Enter your full address" required>
+    <button onclick="submitOrder()">Submit Order</button>
+  </div>
+
+  <script>
+    emailjs.init("LVhWkxvjb6ov2NzNY"); // Replace with your EmailJS public key
+
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartContainer = document.getElementById("cartItems");
+    const totalEl = document.getElementById("total");
+
+    function renderCart() {
+      if (cartItems.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+      }
+
+      let total = 0;
+      cartItems.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `${item.name} x ${item.qty} = ₹${itemTotal}`;
+        cartContainer.appendChild(div);
+      });
+
+      total += 80; // Delivery charge
+      totalEl.textContent = `Total (including ₹80 delivery): ₹${total}`;
+    }
+
+    function submitOrder() {
+      const name = localStorage.getItem("userName") || "Unknown";
+      const phone = localStorage.getItem("userPhone") || "Unknown";
+      const address = document.getElementById("address").value.trim();
+
+      if (!address) {
+        alert("Please enter your address.");
+        return;
+      }
+
+      const orderDetails = cartItems.map(item => `${item.name} x ${item.qty} = ₹${item.price * item.qty}`).join("\n");
+      const total = cartItems.reduce((sum, item) => sum + item.qty * item.price, 0) + 80;
+
+      const params = {
+        name,
+        mobile: phone,
+        address,
+        order: orderDetails,
+        total
+      };
+
+      emailjs.send("service_8yea73", "template_jwypc6o", params)
+        .then(() => {
+          alert("Order sent successfully!");
+          localStorage.removeItem("cart");
+          window.location.href = "index.html";
+        }, (err) => {
+          alert("Failed to send order: " + err.text);
+        });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
