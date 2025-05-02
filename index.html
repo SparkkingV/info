@@ -3,259 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ElectroShop</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <title>ElectroShop Login</title>
   <style>
-    * {
+    body, html {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    body {
-      background-color: #f5f5f5;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      background-color: #222;
-      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2d2dff, #0f8bd9);
+      height: 100vh;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      z-index: 1000;
     }
-
-    .menu-icon {
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: white;
-      transition: color 0.3s;
-    }
-
-    nav ul li a:hover {
-      color: #ff9900;
-    }
-
-    .container {
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product {
-      background-color: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-    }
-
-    .product img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .product-details {
-      padding: 1rem;
-    }
-
-    .product-details h3 {
-      margin-bottom: 0.5rem;
-    }
-
-    .product-details p {
-      margin-bottom: 0.5rem;
-      color: #333;
-    }
-
-    .product-details input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    #submit-btn, #view-cart-btn {
-      margin: 2rem auto 1rem;
-      display: block;
-      background-color: #ff9900;
-      border: none;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    #submit-btn:hover, #view-cart-btn:hover {
-      background-color: #e68a00;
-    }
-
-    .form-section, .cart-section {
-      padding: 2rem;
+    .login-container {
       background: white;
-      margin: 1rem auto;
-      max-width: 600px;
+      padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 300px;
+      text-align: center;
     }
-
-    .form-section input, .form-section textarea {
+    .login-container h1 {
+      color: #0f8bd9;
+      margin-bottom: 1rem;
+    }
+    .login-container input {
       width: 100%;
       padding: 0.7rem;
       margin-bottom: 1rem;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
+    .login-container button {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      background: #0f8bd9;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background: #0d6fb8;
+    }
+    .logo {
+      width: 80px;
+      margin: 0 auto 1rem;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="menu-icon">☰</div>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Search</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="form-section">
-    <h2>Login</h2>
-    <input type="text" id="customer-name" placeholder="Enter your name" required>
-    <input type="tel" id="customer-phone" placeholder="Enter your mobile number" required>
-  </section>
-
-  <main class="container" id="product-container">
-    <div class="product" data-name="Smartphone" data-price="20000">
-      <img src="https://via.placeholder.com/250x200?text=Smartphone" alt="Smartphone">
-      <div class="product-details">
-        <h3>Smartphone</h3>
-        <p>₹20,000</p>
-        <input type="number" min="0" placeholder="Quantity">
-      </div>
-    </div>
-
-    <div class="product" data-name="Laptop" data-price="50000">
-      <img src="https://via.placeholder.com/250x200?text=Laptop" alt="Laptop">
-      <div class="product-details">
-        <h3>Laptop</h3>
-        <p>₹50,000</p>
-        <input type="number" min="0" placeholder="Quantity">
-      </div>
-    </div>
-
-    <div class="product" data-name="Headphones" data-price="1500">
-      <img src="https://via.placeholder.com/250x200?text=Headphones" alt="Headphones">
-      <div class="product-details">
-        <h3>Headphones</h3>
-        <p>₹1,500</p>
-        <input type="number" min="0" placeholder="Quantity">
-      </div>
-    </div>
-  </main>
-
-  <button id="view-cart-btn">View Cart</button>
-
-  <section class="cart-section" id="cart" style="display:none">
-    <h2>Order Summary</h2>
-    <div id="order-details"></div>
-    <p>Delivery Charges: ₹80</p>
-    <input type="text" id="customer-address" placeholder="Enter delivery address" required>
-    <button id="submit-btn">Confirm & Send Order</button>
-  </section>
+  <div class="login-container">
+    <img class="logo" src="https://via.placeholder.com/80x80?text=Logo" alt="Shop Logo">
+    <h1>ElectroShop</h1>
+    <input type="text" id="login-name" placeholder="Enter your name">
+    <input type="tel" id="login-phone" placeholder="Enter mobile number">
+    <button onclick="login()">Login</button>
+  </div>
 
   <script>
-    emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your EmailJS user ID
+    const sellerCredentials = {
+      name: "Seller",
+      phone: "9999999999"
+    };
 
-    const viewCartBtn = document.getElementById("view-cart-btn");
-    const cartSection = document.getElementById("cart");
-    const orderDetailsDiv = document.getElementById("order-details");
-    const submitBtn = document.getElementById("submit-btn");
-
-    viewCartBtn.addEventListener("click", () => {
-      const name = document.getElementById("customer-name").value.trim();
-      const phone = document.getElementById("customer-phone").value.trim();
+    function login() {
+      const name = document.getElementById("login-name").value.trim();
+      const phone = document.getElementById("login-phone").value.trim();
 
       if (!name || !phone) {
         alert("Please enter your name and mobile number.");
         return;
       }
 
-      const products = document.querySelectorAll(".product");
-      let orderList = "";
-      let total = 0;
-
-      products.forEach(product => {
-        const quantity = parseInt(product.querySelector("input").value);
-        if (quantity && quantity > 0) {
-          const pname = product.getAttribute("data-name");
-          const price = parseInt(product.getAttribute("data-price"));
-          const itemTotal = price * quantity;
-          orderList += `<p>${pname} (x${quantity}) - ₹${itemTotal}</p>`;
-          total += itemTotal;
-        }
-      });
-
-      if (!orderList) {
-        alert("No products selected.");
-        return;
+      if (name === sellerCredentials.name && phone === sellerCredentials.phone) {
+        window.location.href = "seller.html";
+      } else {
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userPhone", phone);
+        window.location.href = "buyer.html";
       }
-
-      orderDetailsDiv.innerHTML = orderList + `<p><strong>Total: ₹${total + 80}</strong></p>`;
-      cartSection.style.display = "block";
-    });
-
-    submitBtn.addEventListener("click", () => {
-      const name = document.getElementById("customer-name").value.trim();
-      const phone = document.getElementById("customer-phone").value.trim();
-      const address = document.getElementById("customer-address").value.trim();
-
-      if (!name || !phone || !address) {
-        alert("Please fill in all the details.");
-        return;
-      }
-
-      const orderSummary = document.getElementById("order-details").innerText;
-
-      const templateParams = {
-        to_name: "Seller",
-        from_name: name,
-        message: `Phone: ${phone}\nAddress: ${address}\nOrder Details:\n${orderSummary}`,
-      };
-
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
-        .then(function(response) {
-          alert("Order sent successfully!");
-          location.reload();
-        }, function(error) {
-          alert("Failed to send order: " + JSON.stringify(error));
-        });
-    });
+    }
   </script>
 </body>
 </html>
